@@ -4,19 +4,21 @@ language: python
 matrix:
   fast_finish: true
   include:
-    - python: '2.7'
+
+    - stage: test
+      python: '2.7'
       env: FOO=1
-      stage: test
 
-    - python: '2.7'
-      env: FOO=2
-      stage: test
-
-    - python: '2.7'
-      env: DEPLOY=1
-      stage: deploy
-      script:
-        - echo 'DEPLOY!!!'
+    - stage: deploy
+      sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+      install:
+        - docker pull $DOCKER_IMAGE
+        script:
+          - docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels.sh
+          - ls wheelhouse/
 
 cache:
   pip: true
