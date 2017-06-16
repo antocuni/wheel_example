@@ -16,9 +16,9 @@ matrix:
       env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
       install:
         - docker pull $DOCKER_IMAGE
-        script:
-          - docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels.sh
-          - ls wheelhouse/
+      script:
+        - docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels.sh
+        - ls wheelhouse/
 
 cache:
   pip: true
