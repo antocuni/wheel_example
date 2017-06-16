@@ -7,7 +7,6 @@ matrix:
     - python: '2.7'
       env: FOO=1
 
-  include:
     - python: '2.7'
       env: FOO=2
 
