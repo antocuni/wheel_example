@@ -6,10 +6,15 @@ matrix:
   include:
     - python: '2.7'
       env: FOO=1
+      stage: test
 
     - python: '2.7'
       env: FOO=2
+      stage: test
 
+    - python: '2.7'
+      env: DEPLOY=1
+      stage: deploy
 
 cache:
   pip: true
@@ -31,15 +36,7 @@ install:
   - pip install cython>=0.25
 
 script:
+  - echo foo $FOO
+  - echo deploy $DEPLOY
   - python setup.py build_ext --inplace
   - py.test
-
-deploy:
-  provider: pypi
-  user: antocuni.wheelbuilder
-  password:
-    secure: LtYvqHRb3SjS4+8oQ7DUl5q56B4wEpwKj9FyaC+F6pfG+wkxBEG7JTKTN6WGsCRuqh9tXo30oUwirnB4kS9tMfc2hs+9gZ/zPhLip2pczrsy6u5sFDD3CDC0PullsvajtrnlPrdrcvDdvSvIjhS/rVOnJjXMa6aDGRzL8yiz6WnR46ipceGvzERmz9Yf1nnAjU+x3/UEmfNvG+e8PqwftUmvQmIP1DfWOPUeBaCechDF6srqnUQOcNaXgXyDI5wLlKaInGRnHK+D0Pb4ONvvXVEF8hlBtOpXdQm1RsEp/5LpqOoSShz116lHw/RfR3GWjw4SRsobnkmzWj3tB28Mk6dcEadiBNq7OuQDdN/srg0EifJ0I6h1DYFEXC8Psu7McHVV5M7JLVTGYEYr7ZS+J5JPObkgcChixn/YOFS5HEF7mFWrBSzNN2/3ix9PSLonGNG7AfnfrlBVEpO8sqn2RsphBHCCu1sdhSsROAuCOkSevGuYiXwfnngGl6MqgCKgfA8CewaUH+ocz9XsdmG+d003AfyYuqZuVmz+1BP8fu9xOJ9+HohtJx1gtdqUH9ZXGmgJgqqQlkqvxqXrELoP0zZkZRZ7cYKulKwAxjh1HWBhgvEcHUhT/0naXfRdm0scYqSUE0YNiMA3z531xsuXwW9anD+htqdKp5PrTg++Im4=
-  on:
-    tags: true
-    distributions: sdist
-    repo: antocuni/wheel_example
