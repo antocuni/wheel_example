@@ -21,15 +21,6 @@ cache:
   directories:
   - $HOME/capnp
 
-  
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.8
-      - g++-4.8
-      - python-dev
 
 install:
   - pip install -U pip # so that we can use wheels
