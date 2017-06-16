@@ -1,6 +1,11 @@
 sudo: false
 language: python
 
+env:
+  global:
+    # $PYPIPASS
+    secure: "U30TabwR6nCqHJeuO9xW9YhGa8VZLzS4u5arD+br/cDx3aU/ioPmg3Tguc9vmwujZDdDFgEP3imN2SS6ljAYk5Rff0e8wll76at3Do2hvPXXKfpKmYfGbhvAdFIKiAD+PDROBrARfWm4kRhLc+4nB++jumwP9D1QrU0Un/bBDoWYoHCL7fRI+HJr5Pq3wGEje+mzh9U4KQhh70ddfy1ReOKHYxXaLduLog+taOFzoh1+fez+hKknsvawVLZ3wo2AvXdKXw8XezLfWNkDuaaJRPH5tGxH62bYWJVIUcXm0COEETpFMRdRmyOuHAZ2Cr+kSgdfB3zmw6BshaxtvYwBok6HsttLViALtEZhvj2myOwnP6pMAsG/5VzzpKbgM1dHdTdygEg/FxhDWC3+ng1jjhcGxCqeHef6SNNtJf+GehFYhO0fqT6NeD0HanVzKWv48EgcMK8cYsh4SwN6j2Gp1EjEql9TSOMlWiRasSX90kH0NuAyU+FMNcAYpxitoY3aVYNixRayUVIglXC08qaqSIPlcLcq20HpNB2qymp7L/7hEp6GjH/CuVm8wxnxIu5L4LORtWD7VZdoMHZpTYIftqIlA0+QcYX0DJueyafhnt8nH7AwIUqIuDOxegildq1+n3lK2xO23TdGH8G6UthroB9lVdcRGhBfFo710gUEJ80="
+
 matrix:
   fast_finish: true
   include:
@@ -18,7 +23,8 @@ matrix:
         - docker pull $DOCKER_IMAGE
       script:
         - docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels.sh
-        - ls wheelhouse/
+        - pip install twine
+        - twine upload -u antocuni.wheelbuilder -p $PYPIPASS wheelhouse/*
 
 cache:
   pip: true
