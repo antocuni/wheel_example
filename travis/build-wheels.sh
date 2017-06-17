@@ -9,10 +9,7 @@ for PYBIN in /opt/python/cp27-*/bin; do
     # create the sdist if it does not exist yet
     if [[ ! -d /io/dist ]]
     then
-        (cd /io &&
-        "${PYBIN}/python" setup.py sdist &&
-        mkdir -p wheelhouse &&
-        cp dist/*.tar.gz wheelhouse)
+        (cd /io && "${PYBIN}/python" setup.py sdist)
     fi
 done
 

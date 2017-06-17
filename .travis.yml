@@ -25,7 +25,7 @@ matrix:
       script:
         - docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels.sh
         - pip install twine
-        - twine upload -u antocuni.wheelbuilder -p $PYPIPASS sdist/* wheelhouse/*
+        - twine upload -u antocuni.wheelbuilder -p $PYPIPASS dist/* wheelhouse/*
 
 cache:
   pip: true
