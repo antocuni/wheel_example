@@ -1,6 +1,8 @@
 sudo: false
 language: python
 
+stage: test
+
 env:
   global:
     # $PYPIPASS
@@ -10,9 +12,11 @@ matrix:
   fast_finish: true
   include:
 
-    - stage: test
-      python: '2.7'
+    - python: '2.7'
       env: FOO=1
+
+    - python: '2.7'
+      env: FOO=2
 
     - stage: deploy
       sudo: required
