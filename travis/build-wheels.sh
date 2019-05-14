@@ -13,7 +13,18 @@ for PYBIN in /opt/python/cp27-*/bin; do
     fi
 done
 
+# install pypy
+(cd /opt; tar xfv /io/travis/pypy*.tar.bz2)
+PYPY=/opt/pypy*/bin/pypy
+$PYPY -m ensurepip
+$PYPY -m pip install -U pip setuptools wheel
+
+# compile wheels for pypy
+$PYPY -m pip install 'cython>=0.25'
+$PYPY -m pip wheel /io/ -w wheelhouse/
+
+
 # Bundle external shared libraries into the wheels
 for whl in wheelhouse/*.whl; do
-    auditwheel repair "$whl" -w /io/wheelhouse/
+    auditwheel repair --plat manylinux2010_x86_64 "$whl" -w /io/wheelhouse/
 done
