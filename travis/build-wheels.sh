@@ -14,7 +14,7 @@ for PYBIN in /opt/python/cp27-*/bin; do
 done
 
 # install pypy
-(cd /opt; tar xfv /io/travis/pypy*.tar.bz2)
+(cd /opt; tar xf /io/travis/pypy*.tar.bz2)
 PYPY=/opt/pypy*/bin/pypy
 $PYPY -m ensurepip
 $PYPY -m pip install -U pip setuptools wheel
