@@ -13,10 +13,6 @@ matrix:
   include:
 
     - python: '2.7'
-      env: FOO=1
-
-    - python: '2.7'
-      env: FOO=2
 
     - stage: deploy
       sudo: required
@@ -42,7 +38,5 @@ install:
   - pip install cython>=0.25
 
 script:
-  - echo foo $FOO
-  - echo deploy $DEPLOY
   - python setup.py build_ext --inplace
   - py.test
